@@ -4,12 +4,12 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import multer from "multer";
-// import helmet from "helmet";
 import morgan from "morgan";
 import path from "path";
 import { fileURLToPath } from "url";
 import helmet from "helmet";
-import {register} from "./controllers/auth.js"
+import {register} from "./controllers/auth.js";
+import authRoutes from "./routes/auth.js";
 
 // CONFIGURATIONs
 
@@ -41,6 +41,10 @@ const upload = multer({storage});
 // ROUTES WITH FILES
 // /auth/register is the route, upload.single() is the middleware, register is the controller or the logic
 app.post("/auth/register", upload.single("picture"), register);  
+
+
+// ROUTES
+app.use("/auth", authRoutes);
 
 // MONGOOSE SETUP
 const PORT = process.env.PORT || 6001;
